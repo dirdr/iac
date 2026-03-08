@@ -8,7 +8,7 @@ k3s GitOps cluster managed by ArgoCD. Add a file to `apps/` to deploy a new serv
 chmod +x bootstrap/bootstrap.sh && ./bootstrap/bootstrap.sh
 ```
 
-If repo is private, after bootstrap:
+repo is private: after bootstrap (assuming id_ed25519 basic name)
 ```bash
 argocd repo add git@github.com:dirdr/iac.git --ssh-private-key-path ~/.ssh/id_ed25519
 ```
