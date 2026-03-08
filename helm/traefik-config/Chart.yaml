@@ -1,0 +1,6 @@
+apiVersion: v2
+name: traefik-config
+description: Configures k3s built-in Traefik v2 — global HTTP→HTTPS redirect and Let's Encrypt ACME.
+type: application
+version: 0.1.0
+appVersion: "2.0"

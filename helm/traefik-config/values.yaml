@@ -1,0 +1,4 @@
+acme:
+  email: adrien.pelfresne@gmail.com
+  caServer: https://acme-v02.api.letsencrypt.org/directory
+  storage: /data/acme.json

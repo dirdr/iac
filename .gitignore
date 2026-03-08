@@ -1,0 +1,17 @@
+# Secrets — never commit
+.env
+.env.*
+*.secret.yaml
+*-secret.yaml
+
+# Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Helm
+*.tgz
+charts/
+
+# Claude
+.claude/
