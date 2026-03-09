@@ -1,0 +1,32 @@
+ingress:
+  enabled: true
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+  hosts:
+    - host: umami.adrienpelfresne.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - umami.adrienpelfresne.com
+      secretName: umami-tls
+
+umami:
+  appSecret:
+    # References key "app-secret" in the umami-secrets SealedSecret
+    existingSecret: umami-secrets
+
+database:
+  # References key "database-url" in the umami-secrets SealedSecret
+  existingSecret: umami-secrets
+  databaseUrlKey: database-url
+
+postgresql:
+  enabled: true
+  auth:
+    database: umami
+    username: umami
+    # References key "postgresql-password" in the umami-secrets SealedSecret
+    existingSecret: umami-secrets

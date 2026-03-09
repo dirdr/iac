@@ -1,0 +1,46 @@
+grafana:
+  ingress:
+    enabled: true
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+    hosts:
+      - grafana.adrienpelfresne.com
+    tls:
+      - hosts:
+          - grafana.adrienpelfresne.com
+        secretName: grafana-tls
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki-stack.monitoring.svc.cluster.local:3100
+
+prometheus:
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 20Gi
+
+alertmanager:
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+
+# k3s does not expose these endpoints — disabling avoids noisy false DOWN alerts
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false

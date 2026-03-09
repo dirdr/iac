@@ -1,0 +1,21 @@
+# No configurable values — this chart only manages the SealedSecret.
+# Generate templates/sealed-secret.yaml using the kubeseal workflow below before committing.
+#
+# 1. Generate secrets:
+#    PG_PASS=$(openssl rand -hex 16)
+#    APP_SECRET=$(openssl rand -hex 32)
+#
+# 2. Create plaintext secret (gitignored):
+#    kubectl create secret generic umami-secrets \
+#      --namespace umami \
+#      --from-literal=app-secret=$APP_SECRET \
+#      --from-literal=database-url="postgresql://umami:${PG_PASS}@umami-postgresql:5432/umami" \
+#      --from-literal=postgresql-password=$PG_PASS \
+#      --dry-run=client -o yaml > helm/umami-secrets/secret.yaml
+#
+# 3. Seal:
+#    kubeseal --format yaml < helm/umami-secrets/secret.yaml \
+#      > helm/umami-secrets/templates/sealed-secret.yaml
+#
+# 4. Clean up plaintext:
+#    rm helm/umami-secrets/secret.yaml

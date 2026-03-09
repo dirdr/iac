@@ -1,0 +1,4 @@
+apiVersion: v2
+name: umami-secrets
+version: 0.1.0
+description: Sealed secrets for Umami

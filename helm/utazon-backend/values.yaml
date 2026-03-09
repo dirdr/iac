@@ -15,6 +15,5 @@ ingress:
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
 env:
-  PORT: "3001"
-  RUST_LOG: "info"
-  ALLOWED_ORIGINS: "https://utazon.fr"
+  RUST_LOG: "utazon_backend=info,tower_http=info,tower=warn"
+  ALLOWED_ORIGINS: "https://utazon.fr,*.pages.dev"
