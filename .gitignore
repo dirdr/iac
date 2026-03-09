@@ -1,9 +1,23 @@
+# Environment variables
 .env
 .env.*
 
+# OS / editors
 .DS_Store
 .vscode/
 .idea/
 
+# Helm
 *.tgz
 charts/
+
+# --- Secret hygiene ---
+# Ignore all plaintext Kubernetes Secret manifests
+**/secret.yaml
+**/secrets.yaml
+**/secret.json
+**/secrets.json
+
+# Explicitly allow SealedSecret manifests (encrypted, safe to commit)
+!**/sealed-secret.yaml
+!**/sealed-secrets.yaml
