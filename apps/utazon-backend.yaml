@@ -8,8 +8,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/dirdr/iac.git
-    targetRevision: main
+    repoURL: git@github.com:dirdr/iac.git
+    targetRevision: HEAD
     path: helm/utazon-backend
     helm:
       valueFiles:
