@@ -1,0 +1,20 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/dirdr/utazon-backend
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  port: 3001
+
+ingress:
+  host: api.utazon.fr
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+
+env:
+  PORT: "3001"
+  RUST_LOG: "info"
+  ALLOWED_ORIGINS: "https://utazon.fr"
