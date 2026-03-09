@@ -28,5 +28,5 @@ postgresql:
   auth:
     database: umami
     username: umami
-    # References key "postgresql-password" in the umami-secrets SealedSecret
+    # References keys "password" and "postgres-password" in the umami-secrets SealedSecret
     existingSecret: umami-secrets

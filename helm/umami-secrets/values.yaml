@@ -1,6 +1,12 @@
 # No configurable values — this chart only manages the SealedSecret.
 # Generate templates/sealed-secret.yaml using the kubeseal workflow below before committing.
 #
+# Key names are dictated by Bitnami postgresql subchart conventions:
+#   - "password"          → postgresql user password (read from /opt/bitnami/postgresql/secrets/password)
+#   - "postgres-password" → postgresql admin password (read from /opt/bitnami/postgresql/secrets/postgres-password)
+#   - "app-secret"        → Umami JWT signing secret
+#   - "database-url"      → full postgresql connection URL (used by Umami app)
+#
 # 1. Generate secrets:
 #    PG_PASS=$(openssl rand -hex 16)
 #    APP_SECRET=$(openssl rand -hex 32)
@@ -10,7 +16,8 @@
 #      --namespace umami \
 #      --from-literal=app-secret=$APP_SECRET \
 #      --from-literal=database-url="postgresql://umami:${PG_PASS}@umami-postgresql:5432/umami" \
-#      --from-literal=postgresql-password=$PG_PASS \
+#      --from-literal=password=$PG_PASS \
+#      --from-literal=postgres-password=$PG_PASS \
 #      --dry-run=client -o yaml > helm/umami-secrets/secret.yaml
 #
 # 3. Seal:
