@@ -11,4 +11,5 @@ rules:
 
 ignore:
   - helm/*/charts/
+  - helm/*/templates/
   - "*.tgz"

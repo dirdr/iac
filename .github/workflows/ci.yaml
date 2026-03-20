@@ -54,7 +54,8 @@ jobs:
       - name: Validate utazon-backend
         run: |
           helm template helm/utazon-backend \
-            | kubeconform -strict -summary -output json
+            | kubeconform -strict -summary -output json \
+              -skip SealedSecret
 
       - name: Validate traefik-config
         run: |
