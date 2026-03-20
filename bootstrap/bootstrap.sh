@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ARGOCD_NAMESPACE="argocd"
-ARGOCD_CHART_VERSION="9.4.7"
+ARGOCD_CHART_VERSION="9.4.15"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 for cmd in kubectl helm; do

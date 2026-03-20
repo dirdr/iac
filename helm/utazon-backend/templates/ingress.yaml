@@ -5,6 +5,7 @@ metadata:
   labels: {{- include "app.labels" . | nindent 4 }}
   annotations: {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
+  ingressClassName: traefik
   tls:
     - hosts:
         - {{ .Values.ingress.host }}

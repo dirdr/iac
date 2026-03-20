@@ -14,6 +14,24 @@ ingress:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
+secretName: utazon-backend-secrets
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+securityContext:
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
 env:
   RUST_LOG: "utazon_backend=info,tower_http=info,tower=warn"
   ALLOWED_ORIGINS: "https://utazon.fr,*.pages.dev"

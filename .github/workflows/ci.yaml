@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  yaml-lint:
+    name: YAML Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run yamllint
+        run: yamllint -c .yamllint.yaml .
+
+  helm-lint:
+    name: Helm Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4.3.0
+
+      - name: Lint utazon-backend
+        run: helm lint helm/utazon-backend
+
+      - name: Lint traefik-config
+        run: helm lint helm/traefik-config
+
+      - name: Lint umami-secrets
+        run: helm lint helm/umami-secrets
+
+  kube-validate:
+    name: Kubernetes Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4.3.0
+
+      - name: Install kubeconform
+        run: |
+          curl -fsSL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz \
+            | tar xz -C /usr/local/bin
+
+      - name: Validate utazon-backend
+        run: |
+          helm template helm/utazon-backend \
+            | kubeconform -strict -summary -output json
+
+      - name: Validate traefik-config
+        run: |
+          helm template helm/traefik-config \
+            | kubeconform -strict -summary -output json \
+              -skip HelmChartConfig
+
+      - name: Validate ArgoCD applications
+        run: |
+          kubeconform -strict -summary -output json \
+            -skip Application \
+            apps/
+
+  detect-secrets:
+    name: Secret Leak Detection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

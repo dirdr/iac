@@ -17,6 +17,8 @@ spec:
         - name: utazon-backend
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext: {{- toYaml .Values.securityContext | nindent 12 }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
           ports:
             - containerPort: {{ .Values.service.port }}
           env:
@@ -29,32 +31,32 @@ spec:
             - name: DISCORD_BOT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: utazon-backend-secrets
+                  name: {{ .Values.secretName }}
                   key: DISCORD_BOT_TOKEN
             - name: DISCORD_USER_IDS
               valueFrom:
                 secretKeyRef:
-                  name: utazon-backend-secrets
+                  name: {{ .Values.secretName }}
                   key: DISCORD_USER_IDS
             - name: R2_ACCOUNT_ID
               valueFrom:
                 secretKeyRef:
-                  name: utazon-backend-secrets
+                  name: {{ .Values.secretName }}
                   key: R2_ACCOUNT_ID
             - name: R2_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: utazon-backend-secrets
+                  name: {{ .Values.secretName }}
                   key: R2_ACCESS_KEY_ID
             - name: R2_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: utazon-backend-secrets
+                  name: {{ .Values.secretName }}
                   key: R2_SECRET_ACCESS_KEY
             - name: R2_BUCKET_NAME
               valueFrom:
                 secretKeyRef:
-                  name: utazon-backend-secrets
+                  name: {{ .Values.secretName }}
                   key: R2_BUCKET_NAME
           livenessProbe:
             httpGet:
