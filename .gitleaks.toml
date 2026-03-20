@@ -1,0 +1,4 @@
+[allowlist]
+paths = [
+  '''helm/.*/templates/sealed-secret\.yaml''',
+]
