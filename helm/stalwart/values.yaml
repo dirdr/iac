@@ -78,7 +78,6 @@ ingress:
   tls:
     - hosts:
         - mail.adrienpelfresne.com
-      secretName: stalwart-tls
 
 # Persistent volume for the data directory. Required when the
 # DataStore is a local backend such as RocksDB. Can be disabled
