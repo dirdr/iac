@@ -21,16 +21,6 @@ role: ""
 # push notifications. Leave empty on single-node installs.
 pushShard: ""
 
-# Recovery / bootstrap administrator credential.
-# Enable this on first install so the operator can sign in without
-# scraping the pod logs for the generated temporary password.
-# Remove it once a permanent administrator account has been
-# provisioned through the setup wizard.
-recoveryAdmin:
-  enabled: true
-  username: admin
-  password: "change-me"
-
 # Starts the pods in recovery mode. Suspends mail services and
 # exposes only the management listener on the configured port.
 # See /docs/configuration/recovery-mode.
