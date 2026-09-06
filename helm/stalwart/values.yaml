@@ -72,7 +72,7 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-          portName: https
+          portName: mgmt
   tls:
     - hosts:
         - mail.adrienpelfresne.com
