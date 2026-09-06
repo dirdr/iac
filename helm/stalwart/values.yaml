@@ -60,7 +60,7 @@ config:
 # as ClusterIP and front the chart with an Ingress / gateway for
 # the HTTP listeners only.
 service:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     smtp: 25
     smtps: 465
@@ -70,23 +70,23 @@ service:
     pop3: 110
     pop3s: 995
     sieve: 4190
-    http: 80
-    https: 443
     mgmt: 8080
 
-# Ingress for the HTTP / HTTPS listeners only. Mail protocols
-# require L4 exposure and are not handled here.
 ingress:
-  enabled: false
-  className: nginx
-  annotations: {}
+  enabled: true
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: mail.example.org
+    - host: mail.adrienpelfresne.com
       paths:
         - path: /
           pathType: Prefix
           portName: https
-  tls: []
+  tls:
+    - hosts:
+        - mail.adrienpelfresne.com
+      secretName: stalwart-tls
 
 # Persistent volume for the data directory. Required when the
 # DataStore is a local backend such as RocksDB. Can be disabled
