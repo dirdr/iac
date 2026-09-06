@@ -13,13 +13,12 @@ spec:
               to: websecure
               scheme: https
               permanent: true
-              # Below the ACME challenge router, so certificate renewal is not
-              # redirected away from the web entrypoint.
               priority: 10
-    certResolvers:
+    certificatesResolvers:
       letsencrypt:
-        email: {{ .Values.acme.email }}
-        caServer: {{ .Values.acme.caServer }}
-        storage: {{ .Values.acme.storage }}
-        httpChallenge:
-          entryPoint: web
+        acme:
+          email: {{ .Values.acme.email }}
+          caServer: {{ .Values.acme.caServer }}
+          storage: {{ .Values.acme.storage }}
+          httpChallenge:
+            entryPoint: web
