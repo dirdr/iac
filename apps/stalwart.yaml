@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/dirdr/adrien_kubernetes_cluster
     targetRevision: main
-    path: stalwart
+    path: helm/stalwart
     helm:
       valueFiles:
         - values.yaml
