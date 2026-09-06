@@ -21,9 +21,9 @@ server:
 controller:
   resources:
     requests:
-      memory: 256Mi
+      memory: 512Mi
     limits:
-      memory: 768Mi
+      memory: 2Gi
 
 repoServer:
   resources:
