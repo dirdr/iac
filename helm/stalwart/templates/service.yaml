@@ -48,12 +48,16 @@ spec:
     - name: sieve
       port: {{ .Values.service.ports.sieve }}
       targetPort: sieve
+    {{- if .Values.service.ports.http }}
     - name: http
       port: {{ .Values.service.ports.http }}
       targetPort: http
+    {{- end }}
+    {{- if .Values.service.ports.https }}
     - name: https
       port: {{ .Values.service.ports.https }}
       targetPort: https
+    {{- end }}
     - name: mgmt
       port: {{ .Values.service.ports.mgmt }}
       targetPort: mgmt
